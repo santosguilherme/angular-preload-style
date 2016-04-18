@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('angular.preload.style', [])
 
     .constant('preloadStyleConfiguration', {
@@ -6,8 +8,20 @@ angular.module('angular.preload.style', [])
         cssFile: ''
     })
 
-    .run(['preloadStyleConfiguration', 'elementCreator', function (preloadStyleConfiguration, elementCreator) {
+    .run(['preloadStyleConfiguration', '$templateCache', '$templateRequest',
+        function (preloadStyleConfiguration, $templateCache, $templateRequest) {
 
-        elementCreator.createOverlayDiv();
+        $templateRequest(preloadStyleConfiguration.templateUrl).then(function (template) {
+            $templateCache.put(preloadStyleConfiguration.templateUrl, template)
+        })
 
+    }])
+
+    .directive('angularPreloadStyle', ['preloadStyleConfiguration', function (preloadStyleConfiguration) {
+        return {
+            templateUrl: preloadStyleConfiguration.templateUrl,
+            link: function (scope, element, attrs) {
+
+            }
+        };
     }]);
