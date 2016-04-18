@@ -1,0 +1,13 @@
+{
+  "name": "test-styles",
+  "version": "0.0.1",
+  "description": "",
+  "main": "js/app.js",
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "author": "Guilherme Santos",
+  "devDependencies": {
+    "bower": "1.7.9"
+  }
+}

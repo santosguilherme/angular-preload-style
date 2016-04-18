@@ -1,0 +1,13 @@
+{
+  "name": "test-styles",
+  "description": "",
+  "main": "js/app.js",
+  "authors": [
+    "Guilherme Santos"
+  ],
+  "private": true,
+  "dependencies": {
+    "angular": "1.5.0",
+    "angular-ui-router": "0.2.18"
+  }
+}
