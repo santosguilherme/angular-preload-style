@@ -1,13 +1,26 @@
 {
-  "name": "test-styles",
+  "name": "angular-preload-style",
   "version": "0.0.1",
   "description": "",
+  "author": "santosguilherme <sntguilherme@gmail.com>",
+  "homepage": "https://github.com/santosguilherme/angular-preload-style",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/santosguilherme/angular-preload-style.git"
+  },
+  "bugs": {
+    "url": "https://github.com/santosguilherme/angular-preload-style/issues"
+  },
   "main": "js/app.js",
+  "devDependencies": {
+    "bower": "1.7.9",
+    "gulp": "",
+    "gulp-clean": "^0.3.2",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^1.5.3"
+  },
   "scripts": {
     "postinstall": "bower install"
-  },
-  "author": "Guilherme Santos",
-  "devDependencies": {
-    "bower": "1.7.9"
   }
 }

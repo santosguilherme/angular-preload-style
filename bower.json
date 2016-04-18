@@ -1,13 +1,20 @@
 {
-  "name": "test-styles",
+  "name": "angular-preload-style",
   "description": "",
-  "main": "js/app.js",
+  "homepage": "https://github.com/santosguilherme/angular-preload-style",
   "authors": [
-    "Guilherme Santos"
+    "santosguilherme <sntguilherme@gmail.com>"
   ],
-  "private": true,
+  "description": "",
+  "main": "./dist/angular-preload-style.min.js",
+  "license": "MIT",
+  "ignore": [
+    "src",
+    "node_modules",
+    "bower_components",
+    "gulpfile.js"
+  ],
   "dependencies": {
-    "angular": "1.5.0",
-    "angular-ui-router": "0.2.18"
+    "angular": "1.5.0"
   }
 }
