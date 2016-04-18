@@ -1,0 +1,1 @@
+angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("loading.html","<div class=\"angular-preload-style\">\n\n    <div class=\"full-overlay\">\n        Carregando...\n    </div>\n\n</div>");}]);
