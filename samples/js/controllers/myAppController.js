@@ -1,14 +1,12 @@
 'use strict';
 
-angular.module("myApp").controller("MyAppController",
-    ["$rootScope", "$scope", "angularPreloadStyle", function ($rootScope, $scope, angularPreloadStyle) {
-        $scope.titleText = 'Test Styles';
+angular.module("myApp").controller("MyAppController", ["angularPreloadStyle", function (angularPreloadStyle) {
 
-        $scope.show = function () {
-            $scope.$broadcast('SHOW_LOADING_OVERLAY');
-        };
+    this.show = function () {
+        angularPreloadStyle.show();
+    };
 
-        $scope.hide = function () {
-            $scope.$broadcast('HIDE_LOADING_OVERLAY');
-        };
-    }]);
+    this.hide = function () {
+        angularPreloadStyle.hide();
+    };
+}]);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module("myApp", ['angular.preload.style'])
+angular.module("myApp", ['angular.preload.style', 'ngResource'])
 
     .provider("cssResolve", function CssResolveProvider() {
 
@@ -13,15 +13,16 @@ angular.module("myApp", ['angular.preload.style'])
         };
     })
 
-    .config(['cssResolveProvider', 'preloadStyleConfiguration', function (cssResolveProvider, preloadStyleConfiguration) {
+    .config(['preloadStyleConfiguration', function (preloadStyleConfiguration) {
 
-        //preloadStyleConfiguration.templateUrl = 'test.html';
+        preloadStyleConfiguration.scriptBaseUrl = 'css/';
 
     }])
 
-    .run(['angularPreloadStyle', function (angularPreloadStyle) {
-
+    .run(['clienteService', 'angularPreloadStyle', function (clienteService, angularPreloadStyle) {
+        clienteService.getStyleClient().get().$promise.then(function (response) {
+            angularPreloadStyle.loadStyle(true, response.path)
+        });
     }]);
-
 
 

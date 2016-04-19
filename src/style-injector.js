@@ -1,9 +1,8 @@
-angular.module("angular.preload.style").factory("injectCSS", ['$q', function ($q) {
-    var injectCSS = {};
+angular.module('angular.preload.style').factory('styleInjector', ['$q', function ($q) {
+    var styleInjector = {};
 
-    var createLink = function (id, url) {
+    var createLink = function (url) {
         var link = document.createElement('link');
-        link.id = id;
         link.rel = "stylesheet";
         link.type = "text/css";
         link.href = url;
@@ -24,18 +23,24 @@ angular.module("angular.preload.style").factory("injectCSS", ['$q', function ($q
         }, 50);
     };
 
-    injectCSS.set = function (id, url) {
+    var normalizeUrl = function (scriptBaseUrl, cssFile) {
+        var URL_SEPARATOR = '/',
+            EXT_CSS = '.css',
+            base = scriptBaseUrl.endsWith(URL_SEPARATOR) ? scriptBaseUrl : scriptBaseUrl + URL_SEPARATOR,
+            file = cssFile.endsWith(EXT_CSS) ? cssFile : cssFile + EXT_CSS;
+
+        file.startsWith(URL_SEPARATOR) && (file = file.substr(1));
+
+        return base + file;
+    };
+
+    styleInjector.inject = function (scriptBaseUrl, cssFile) {
         var tries = 0,
             deferred = $q.defer(),
+            url = normalizeUrl(scriptBaseUrl, cssFile),
             link;
 
-        /*if (!angular.element('link#' + id).length) {
-         link = createLink(id, url);
-         link.onload = deferred.resolve;
-         angular.element('head').append(link);
-         }*/
-
-        link = createLink(id, url);
+        link = createLink(url);
         link.onload = deferred.resolve;
         angular.element('head').append(link);
 
@@ -44,5 +49,5 @@ angular.module("angular.preload.style").factory("injectCSS", ['$q', function ($q
         return deferred.promise;
     };
 
-    return injectCSS;
+    return styleInjector;
 }]);

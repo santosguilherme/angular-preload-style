@@ -5,14 +5,18 @@
     <title>Test</title>
 
     <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="../src/angular-preload-style.css">
 
     <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
     <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="../bower_components/angular-communicator/dist/angular-communicator.min.js"></script>
     <script src="../dist/angular-preload-style.min.js"></script>
 </head>
 <body>
 <div angular-preload-style></div>
-<div ng-controller="MyAppController as myAppController">
+<div class="myApp" ng-controller="MyAppController as myAppController">
     Hello!
     <button type="button" ng-click="myAppController.show()">Mostrar</button>
     <button type="button" ng-click="myAppController.hide()">Esconder</button>

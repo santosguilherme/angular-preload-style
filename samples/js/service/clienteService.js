@@ -1,14 +1,10 @@
 'use strict';
 
 angular.module("myApp").service("clienteService",
-    ["$q", "$timeout", function ($q, $timeout) {
+    ["$resource", function ($resource) {
 
         this.getStyleClient = function () {
-            var deferred = $q.defer();
-            $timeout(function () {
-                deferred.resolve('cliente.css');
-            }, 1000);
-            return deferred.promise;
+            return $resource("http://soft031-177/bpm-server-adm/areas/css");
         };
 
     }]);

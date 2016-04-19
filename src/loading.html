@@ -1,7 +1,64 @@
-<div class="angular-preload-style">
+<style type="text/css">
 
-    <div class="full-overlay">
-        Carregando...
+    .content-loading {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        background: white;
+        -webkit-transition:all linear 0.9s;
+        transition:all linear 0.9s;
+    }
+
+    .content-loading.ng-hide {
+        opacity:0;
+    }
+
+    .loading {
+        background: rgba(0, 0, 0, 1);
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+        border-radius: 3px;
+        width: 180px;
+        text-align: center;
+        height: 80px;
+        line-height: 74px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-left: -90px;
+        margin-top: -40px;
+    }
+
+    .blink {
+        animation: blink-animation 2s steps(32, start) infinite;
+        -webkit-animation: blink-animation 2s steps(32, start) infinite;
+    }
+
+    @keyframes blink-animation {
+        to {
+            opacity: 0;
+        }
+        from {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes blink-animation {
+        to {
+            opacity: 0;
+        }
+        from {
+            opacity: 1;
+        }
+    }
+</style>
+
+<div class="content-loading" ng-show="showOverlay" ng-init="showOverlay=true">
+    <div class="loading">
+        <span class="blink">Carregando...</span>
     </div>
-
 </div>
