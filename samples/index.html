@@ -12,12 +12,14 @@
 </head>
 <body>
 <div angular-preload-style></div>
-<div>
+<div ng-controller="MyAppController as myAppController">
     Hello!
+    <button type="button" ng-click="myAppController.show()">Mostrar</button>
+    <button type="button" ng-click="myAppController.hide()">Esconder</button>
 </div>
 
 <script src="app.js"></script>
-<script src="js/controllers/homeController.js"></script>
+<script src="js/controllers/myAppController.js"></script>
 <script src="js/service/clienteService.js"></script>
 </body>
 </html>

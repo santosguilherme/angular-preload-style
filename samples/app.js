@@ -19,8 +19,8 @@ angular.module("myApp", ['angular.preload.style'])
 
     }])
 
-    .run(['injectCSS', function (injectCSS) {
-        injectCSS.set('cliente', 'css/cliente.css');
+    .run(['angularPreloadStyle', function (angularPreloadStyle) {
+
     }]);
 
 
