@@ -16,6 +16,7 @@ angular.module("myApp", ['angular.preload.style', 'ngResource'])
     .config(['preloadStyleConfiguration', function (preloadStyleConfiguration) {
 
         preloadStyleConfiguration.scriptBaseUrl = 'css/';
+        preloadStyleConfiguration.startOpen = true;
 
     }])
 

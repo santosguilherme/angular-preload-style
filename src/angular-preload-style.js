@@ -24,7 +24,8 @@ angular.module('angular.preload.style', ['AngularCommunicator', 'ngAnimate'])
     .constant('preloadStyleConfiguration', {
         templateUrl: 'loading.html',
         scriptBaseUrl: '',
-        cssFile: ''
+        cssFile: '',
+        startOpen: false
     })
 
     .constant('PRELOAD_STYLES_EVENTS', {
@@ -60,7 +61,8 @@ angular.module('angular.preload.style', ['AngularCommunicator', 'ngAnimate'])
         function (preloadStyleConfiguration, PRELOAD_STYLES_EVENTS, angularCommunicatorService) {
             return {
                 templateUrl: preloadStyleConfiguration.templateUrl,
-                link: function (scope, element) {
+                link: function (scope) {
+                    scope.showOverlay = preloadStyleConfiguration.startOpen;
 
                     angularCommunicatorService.on(PRELOAD_STYLES_EVENTS.SHOW_LOADING_OVERLAY, function () {
                         scope.showOverlay = true;
