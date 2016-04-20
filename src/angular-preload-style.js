@@ -19,7 +19,7 @@ if (!String.prototype.startsWith) {
     };
 }
 
-angular.module('angular.preload.style', ['AngularCommunicator', 'ngAnimate'])
+angular.module('angular.preload.style', ['ngAnimate', 'AngularCommunicator'])
 
     .constant('preloadStyleConfiguration', {
         templateUrl: 'loading.html',
