@@ -33,31 +33,33 @@ angular.module('angular.preload.style', ['AngularCommunicator', 'ngAnimate'])
         HIDE_LOADING_OVERLAY: 'HIDE_LOADING_OVERLAY'
     })
 
+
     .service('angularPreloadStyle', ['PRELOAD_STYLES_EVENTS', 'angularCommunicatorService', 'preloadStyleConfiguration', 'styleInjector',
         function (PRELOAD_STYLES_EVENTS, angularCommunicatorService, preloadStyleConfiguration, styleInjector) {
             var self = this;
-
+            self.isOverlayOpen = preloadStyleConfiguration.startOpen;
 
             self.show = function () {
                 angularCommunicatorService.exec(PRELOAD_STYLES_EVENTS.SHOW_LOADING_OVERLAY);
+                self.isOverlayOpen = true;
             };
 
             self.hide = function () {
                 angularCommunicatorService.exec(PRELOAD_STYLES_EVENTS.HIDE_LOADING_OVERLAY);
+                self.isOverlayOpen = true;
             };
 
             self.loadStyle = function (forceHideOverlay, cssFile, scriptBaseUrl) {
                 var base = scriptBaseUrl || preloadStyleConfiguration.scriptBaseUrl,
                     css = cssFile || preloadStyleConfiguration.cssFile;
 
-                styleInjector.inject(base, css).then(function () {
+                self.isOverlayOpen && styleInjector.inject(base, css).then(function () {
                     forceHideOverlay && self.hide();
                 });
             };
         }])
 
-    .
-    directive('angularPreloadStyle', ['preloadStyleConfiguration', 'PRELOAD_STYLES_EVENTS', 'angularCommunicatorService',
+    .directive('angularPreloadStyle', ['preloadStyleConfiguration', 'PRELOAD_STYLES_EVENTS', 'angularCommunicatorService',
         function (preloadStyleConfiguration, PRELOAD_STYLES_EVENTS, angularCommunicatorService) {
             return {
                 templateUrl: preloadStyleConfiguration.templateUrl,

@@ -22,7 +22,7 @@ angular.module("myApp", ['angular.preload.style', 'ngResource'])
 
     .run(['clienteService', 'angularPreloadStyle', function (clienteService, angularPreloadStyle) {
         clienteService.getStyleClient().get().$promise.then(function (response) {
-            angularPreloadStyle.loadStyle(true, response.path)
+            angularPreloadStyle.loadStyle(true, response.path);
         });
     }]);
 
