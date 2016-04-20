@@ -1,9 +1,8 @@
 {
   "name": "angular-preload-style",
   "description": "",
-  "homepage": "https://github.com/santosguilherme/angular-preload-style",
   "authors": [
-    "santosguilherme <sntguilherme@gmail.com>"
+    "guilherme.santos <guilherme.santos@softplan.com.br>"
   ],
   "main": "dist/angular-preload-style.min.js",
   "license": "MIT",
