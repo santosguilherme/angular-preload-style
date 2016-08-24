@@ -1,12 +1,9 @@
 'use strict';
 
-angular.module("myApp").controller("MyAppController", ["angularPreloadStyle", function (angularPreloadStyle) {
+angular.module("myApp").controller("MyAppController", ['$state', function ($state) {
+    var self = this;
 
-    this.show = function () {
-        angularPreloadStyle.show();
-    };
-
-    this.hide = function () {
-        angularPreloadStyle.hide();
+    self.goToState = function (state) {
+        state && $state.go(state);
     };
 }]);

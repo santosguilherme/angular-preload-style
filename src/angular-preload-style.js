@@ -19,60 +19,34 @@ if (!String.prototype.startsWith) {
     };
 }
 
-angular.module('angular.preload.style', ['ngAnimate', 'AngularCommunicator'])
+angular.module('angular.preload.style', ['ngAnimate', 'ui.router'])
 
-    .constant('preloadStyleConfiguration', {
-        templateUrl: 'loading.html',
+    .config(['$stateProvider', function ($stateProvider) {
+        $stateProvider.state('ANGULAR_PRELOAD_STYLE_LOADING', {
+            url: 'loading',
+            templateUrl: 'loading.html'
+        });
+    }])
+
+    .run(['$state', function ($state) {
+        $state.go('ANGULAR_PRELOAD_STYLE_LOADING');
+    }])
+
+    .constant('$preloadStyleConfig', {
         scriptBaseUrl: '',
         cssFile: '',
-        startOpen: false
+        startOpen: false,
+        state: ''
     })
 
-    .constant('PRELOAD_STYLES_EVENTS', {
-        SHOW_LOADING_OVERLAY: 'SHOW_LOADING_OVERLAY',
-        HIDE_LOADING_OVERLAY: 'HIDE_LOADING_OVERLAY'
-    })
+    .service('$preloadStyleService', ['$preloadStyleConfig', 'styleInjector', '$state', function ($preloadStyleConfig, styleInjector, $state) {
 
+        this.loadStyle = function (cssFile, scriptBaseUrl) {
+            var base = scriptBaseUrl || $preloadStyleConfig.scriptBaseUrl;
+            var css = cssFile || $preloadStyleConfig.cssFile;
 
-    .service('angularPreloadStyle', ['PRELOAD_STYLES_EVENTS', 'angularCommunicatorService', 'preloadStyleConfiguration', 'styleInjector',
-        function (PRELOAD_STYLES_EVENTS, angularCommunicatorService, preloadStyleConfiguration, styleInjector) {
-            var self = this;
-            self.isOverlayOpen = preloadStyleConfiguration.startOpen;
-
-            self.show = function () {
-                angularCommunicatorService.exec(PRELOAD_STYLES_EVENTS.SHOW_LOADING_OVERLAY);
-                self.isOverlayOpen = true;
-            };
-
-            self.hide = function () {
-                angularCommunicatorService.exec(PRELOAD_STYLES_EVENTS.HIDE_LOADING_OVERLAY);
-                self.isOverlayOpen = true;
-            };
-
-            self.loadStyle = function (forceHideOverlay, cssFile, scriptBaseUrl) {
-                var base = scriptBaseUrl || preloadStyleConfiguration.scriptBaseUrl,
-                    css = cssFile || preloadStyleConfiguration.cssFile;
-
-                self.isOverlayOpen && styleInjector.inject(base, css).then(function () {
-                    forceHideOverlay && self.hide();
-                });
-            };
-        }])
-
-    .directive('angularPreloadStyle', ['preloadStyleConfiguration', 'PRELOAD_STYLES_EVENTS', 'angularCommunicatorService',
-        function (preloadStyleConfiguration, PRELOAD_STYLES_EVENTS, angularCommunicatorService) {
-            return {
-                templateUrl: preloadStyleConfiguration.templateUrl,
-                link: function (scope) {
-                    scope.showOverlay = preloadStyleConfiguration.startOpen;
-
-                    angularCommunicatorService.on(PRELOAD_STYLES_EVENTS.SHOW_LOADING_OVERLAY, function () {
-                        scope.showOverlay = true;
-                    });
-
-                    angularCommunicatorService.on(PRELOAD_STYLES_EVENTS.HIDE_LOADING_OVERLAY, function () {
-                        scope.showOverlay = false;
-                    });
-                }
-            };
-        }]);
+            styleInjector.inject(base, css).then(function () {
+                $state.go($preloadStyleConfig.state);
+            });
+        };
+    }]);

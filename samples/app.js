@@ -1,28 +1,27 @@
 'use strict';
 
-angular.module("myApp", ['angular.preload.style', 'ngResource'])
+angular.module("myApp", ['angular.preload.style', 'ui.router'])
 
-    .provider("cssResolve", function CssResolveProvider() {
+    .config(['$preloadStyleConfig', '$stateProvider', function ($preloadStyleConfig, $stateProvider) {
 
-        this.test = function () {
-            return 'cliente.css';
-        };
+        $preloadStyleConfig.scriptBaseUrl = 'css/';
+        $preloadStyleConfig.startOpen = true;
+        $preloadStyleConfig.state = 'one';
 
-        this.$get = function cssResolveFactory() {
-            return new CssResolve();
-        };
-    })
-
-    .config(['preloadStyleConfiguration', function (preloadStyleConfiguration) {
-
-        preloadStyleConfiguration.scriptBaseUrl = 'css/';
-        preloadStyleConfiguration.startOpen = true;
-
+        $stateProvider
+            .state('one', {
+                url: 'one',
+                templateUrl: 'views/one.html'
+            })
+            .state('two', {
+                url: 'two',
+                templateUrl: 'views/two.html'
+            });
     }])
 
-    .run(['clienteService', 'angularPreloadStyle', function (clienteService, angularPreloadStyle) {
-        clienteService.getStyleClient().get().$promise.then(function (response) {
-            angularPreloadStyle.loadStyle(true, response.path);
+    .run(['clienteService', '$preloadStyleService', function (clienteService, $preloadStyleService) {
+        clienteService.getStyleClient().then(function (response) {
+            $preloadStyleService.loadStyle(response.data);
         });
     }]);
 
