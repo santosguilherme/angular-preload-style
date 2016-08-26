@@ -28,25 +28,31 @@ angular.module('angular.preload.style', ['ngAnimate', 'ui.router'])
         });
     }])
 
-    .run(['$state', function ($state) {
-        $state.go('ANGULAR_PRELOAD_STYLE_LOADING');
+    .run(['$state', '$preloadStyleConfig', function ($state, $preloadStyleConfig) {
+        $preloadStyleConfig.startOpen && $state.go('ANGULAR_PRELOAD_STYLE_LOADING');
     }])
 
     .constant('$preloadStyleConfig', {
         scriptBaseUrl: '',
         cssFile: '',
-        startOpen: false,
+        startOpen: true,
         state: ''
     })
 
     .service('$preloadStyleService', ['$preloadStyleConfig', 'styleInjector', '$state', function ($preloadStyleConfig, styleInjector, $state) {
 
+        var loadToConfiguratedState = function () {
+            $state.go($preloadStyleConfig.state);
+        };
+
         this.loadStyle = function (cssFile, scriptBaseUrl) {
             var base = scriptBaseUrl || $preloadStyleConfig.scriptBaseUrl;
             var css = cssFile || $preloadStyleConfig.cssFile;
 
-            styleInjector.inject(base, css).then(function () {
-                $state.go($preloadStyleConfig.state);
+            css && styleInjector.inject(base, css).then(function () {
+                loadToConfiguratedState();
             });
+
+            !css && loadToConfiguratedState();
         };
     }]);
