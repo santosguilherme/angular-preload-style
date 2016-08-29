@@ -41,18 +41,19 @@ angular.module('angular.preload.style', ['ngAnimate', 'ui.router'])
 
     .service('$preloadStyleService', ['$preloadStyleConfig', 'styleInjector', '$state', function ($preloadStyleConfig, styleInjector, $state) {
 
-        var loadToConfiguratedState = function () {
-            $state.go($preloadStyleConfig.state);
+        var loadToConfiguratedState = function (state) {
+            state && $state.go(state);
         };
 
-        this.loadStyle = function (cssFile, scriptBaseUrl) {
+        this.loadStyle = function (cssFile, scriptBaseUrl, state) {
             var base = scriptBaseUrl || $preloadStyleConfig.scriptBaseUrl;
             var css = cssFile || $preloadStyleConfig.cssFile;
+            var state = state || $preloadStyleConfig.state;
 
             css && styleInjector.inject(base, css).then(function () {
-                loadToConfiguratedState();
+                loadToConfiguratedState(state);
             });
 
-            !css && loadToConfiguratedState();
+            !css && loadToConfiguratedState(state);
         };
     }]);
