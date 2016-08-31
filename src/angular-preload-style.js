@@ -39,7 +39,8 @@ angular.module('angular.preload.style', ['ngAnimate', 'ui.router'])
         state: ''
     })
 
-    .service('$preloadStyleService', ['$preloadStyleConfig', 'styleInjector', '$state', function ($preloadStyleConfig, styleInjector, $state) {
+    .service('$preloadStyleService',
+    ['$preloadStyleConfig', 'styleInjector', '$state', '$log', function ($preloadStyleConfig, styleInjector, $state, $log) {
 
         var loadToConfiguratedState = function (state, stateOptions) {
             state && $state.go(state, stateOptions);
@@ -51,6 +52,9 @@ angular.module('angular.preload.style', ['ngAnimate', 'ui.router'])
             var state = state || $preloadStyleConfig.state;
 
             css && styleInjector.inject(base, css).then(function () {
+                loadToConfiguratedState(state, stateOptions);
+            }, function () {
+                $log.error('Não foi possível carregar o arquivo ' + css);
                 loadToConfiguratedState(state, stateOptions);
             });
 

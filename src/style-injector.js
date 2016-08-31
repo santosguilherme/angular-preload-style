@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('angular.preload.style').factory('styleInjector', ['$q', function ($q) {
     var styleInjector = {};
 
@@ -42,6 +44,7 @@ angular.module('angular.preload.style').factory('styleInjector', ['$q', function
 
         link = createLink(url);
         link.onload = deferred.resolve;
+        link.onerror = deferred.reject;
         angular.element('head').append(link);
 
         checkLoaded(url, deferred, tries);
