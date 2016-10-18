@@ -6,7 +6,7 @@ angular.module("myApp").service("clienteService",
         this.getStyleClient = function () {
             var deferred = $q.defer();
 
-            deferred.resolve({data: 'cliente'});
+            deferred.resolve({data: 'customer'});
 
             return deferred.promise;
         };
