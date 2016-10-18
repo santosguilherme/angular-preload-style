@@ -2,12 +2,12 @@
   "name": "angular-preload-style",
   "version": "0.2.5",
   "description": "Carregamento de estilos integrado com ui-router",
-  "author": "guilherme.santos <guilherme.santos@softplan.com.br>",
-  "homepage": "https://git-ungp.softplan.com.br/plugins/gitblit/summary/?r=supinterno%2Fangular-preload-style",
+  "author": "santosguilherme <sntguilherme@gmail.com>",
+  "homepage": "https://github.com/santosguilherme/angular-preload-style",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://git-ungp.softplan.com.br/supinterno/angular-preload-style.git"
+    "url": "https://github.com/santosguilherme/angular-preload-style"
   },
   "main": "js/app.js",
   "devDependencies": {
